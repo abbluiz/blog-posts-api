@@ -12,7 +12,6 @@ const getUrlFromRequest = (request) => {
 
 const set = (request, response, next) => {
 
-    console.log('set');
     const url = getUrlFromRequest(request);
     cache.set(url, response.locals.data);
     return next();
@@ -21,7 +20,6 @@ const set = (request, response, next) => {
 
 const get = (request, response, next) => {
 
-    console.log('get');
     const url = getUrlFromRequest(request);
     const data = cache.get(url);
 
