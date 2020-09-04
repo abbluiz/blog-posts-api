@@ -40,19 +40,14 @@ router.get('/api/posts', [
                     throw new Error(errorMessage);
                 }
     
-                allPosts = allPosts.concat(posts);
+                let auxiliaryArray = [...allPosts];
+                allPosts = auxiliaryArray.concat(posts);
     
             });
 
         }));
 
-        if (request.query.sortBy) {
-        
-            arraySort(allPosts, sortBy, {reverse: direction === 'asc' ? false : true});
-
-        }
-
-        response.send({posts: _.uniqBy(allPosts, 'id')});
+        response.send({posts: _.sortedUniqBy(arraySort(allPosts, sortBy, {reverse: direction === 'asc' ? false : true}), 'id')});
 
     } catch (error) {
         response.status(500).send({error: error.message});
